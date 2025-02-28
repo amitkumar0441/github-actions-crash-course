@@ -6,9 +6,7 @@ on:
       - main
 
 permissions:
-  contents: read  # Allows the workflow to read the repository contents
-  pages: write    # Grants permission to deploy to GitHub Pages
-  id-token: write # Required for GitHub Pages authentication
+  contents: write  # Allows pushing to the gh-pages branch
 
 jobs:
   deploy:
@@ -31,7 +29,8 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
-          branch: gh-pages  # Explicitly setting the deployment branch
-          clean: true       # Removes old files before deploying
+          branch: gh-pages   # The branch where the site will be deployed
+          folder: build      # The folder that contains the built React app
+          clean: true        # Remove old files before deploying
